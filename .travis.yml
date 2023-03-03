@@ -1,0 +1,16 @@
+# Build
+- docker build -t udagram-api-feed ./udagram-api-feed
+- docker build -t udagram-api-feed ./udagram-api-user
+- docker build -t udagram-api-feed ./udagram-frontend
+- docker build -t udagram-api-feed ./udagram-reverseproxy
+# Tagging
+- docker tag udagram-api-feed nikolaslacerda/udagram-api-feed:v1
+- docker tag udagram-api-feed nikolaslacerda/udagram-api-user:v1
+- docker tag udagram-api-feed nikolaslacerda/udagram-frontend:v1
+- docker tag udagram-api-feed nikolaslacerda/udagram-reverseproxy:v1
+# Push
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker push nikolaslacerda/udagram-api-feed:v1
+- docker push nikolaslacerda/udagram-api-user:v1
+- docker push nikolaslacerda/udagram-api-frontend:v1
+- docker push nikolaslacerda/udagram-api-reverseproxy:v1

@@ -1,0 +1,40 @@
+version: "3"
+services:
+  reverseproxy:
+      image: reverseproxy
+      ports:
+          - 8080:8080
+      restart: always
+      depends_on:
+        - backend-user
+        - backend-feed
+  backend-user:
+    image: udagram-api-user
+    environment:
+      POSTGRES_USERNAME: root
+      POSTGRES_PASSWORD: adminadmin 
+      POSTGRES_DB: database-project-3.cf2ayvjbtx6y.us-east-1.rds.amazonaws.com 
+      POSTGRES_HOST: postgres
+      AWS_REGION: us-east-1
+      AWS_PROFILE: project-4 
+      AWS_BUCKET: nikolas-user-image-uploads
+      JWT_SECRET: testing
+      URL: "http://localhost:8100"
+  backend-feed:
+    image: udagram-api-feed
+    volumes:
+      - C:/Users/nikol/.aws:/root/.aws
+    environment:
+      POSTGRES_USERNAME: root
+      POSTGRES_PASSWORD: adminadmin 
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: database-project-3.cf2ayvjbtx6y.us-east-1.rds.amazonaws.com
+      AWS_REGION: us-east-1
+      AWS_PROFILE: project-4 
+      AWS_BUCKET: nikolas-user-image-uploads
+      JWT_SECRET: testing
+      URL: "http://localhost:8100"
+  frontend:
+    image: udagram-frontend:local
+    ports:
+      - "8100:80"
