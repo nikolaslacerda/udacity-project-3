@@ -2,29 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  labels:
-    app: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      run: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        run: frontend
     spec:
       containers:
         - name: frontend
-          image: nikolaslacerda/udagram-frontend:v1
+          image: docker.io/nikolaslacerda/udagram-frontend:v1
           imagePullPolicy: Always
           resources:
             requests:
               memory: "128Mi"
-              cpu: "250m"
             limits:
               memory: "1024Mi"
-              cpu: "500m"
           envFrom:
             - secretRef:
                 name: env-secret
@@ -33,4 +29,4 @@ spec:
             - secretRef:
                 name: aws-secret
           ports:
-            - containerPort: 8080
+            - containerPort: 80

@@ -1,29 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-feed
-  labels:
-    app: api-feed
+  name: backend-user
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api-feed
+      run: backend-user
   template:
     metadata:
       labels:
-        app: api-feed
+        run: backend-user
     spec:
       containers:
-        - name: api-feed
-          image: nikolaslacerda/udagram-api-feed:v1
+        - name: backend-user
+          image: docker.io/nikolaslacerda/udagram-api-user:v1
           imagePullPolicy: Always
           resources:
             requests:
-              memory: "128Mi"
               cpu: "250m"
             limits:
-              memory: "1024Mi"
               cpu: "500m"
           envFrom:
             - secretRef:

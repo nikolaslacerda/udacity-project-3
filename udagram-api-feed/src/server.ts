@@ -16,7 +16,7 @@ import {V0_FEED_MODELS} from './controllers/v0/model.index';
   await sequelize.sync();
 
   const app = express();
-  const port = 8081;
+  const port = 8080;
 
   app.use(bodyParser.json());
 

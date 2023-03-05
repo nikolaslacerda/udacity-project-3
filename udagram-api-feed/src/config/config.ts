@@ -7,7 +7,7 @@ export const config = {
   'aws_region': 'us-east-1',
   'aws_profile': 'project-4',
   'aws_media_bucket': 'nikolas-user-image-uploads',
-  'url': process.env.URL,
+  'url': 'http://localhost:8080',
   'jwt': {
     'secret': 'testing',
   },
