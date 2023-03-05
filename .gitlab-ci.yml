@@ -1,0 +1,58 @@
+docker-build-master:
+  # Official docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+
+    - docker build -t udagram-api-feed ./udagram-api-feed
+    - docker tag udagram-api-feed nikolaslacerda/udagram-api-feed:v1
+    - docker push docker.io/nikolaslacerda/udagram-api-feed:v1
+
+    - docker build -t udagram-api-user ./udagram-api-user
+    - docker tag udagram-api-user nikolaslacerda/udagram-api-user:v1
+    - docker push docker.io/nikolaslacerda/udagram-api-user:v1
+
+    - docker build -t udagram-frontend ./udagram-frontend
+    - docker tag udagram-frontend nikolaslacerda/udagram-frontend:v1
+    - docker push docker.io/nikolaslacerda/udagram-frontend:v1
+
+    - docker build -t udagram-reverseproxy ./udagram-reverseproxy
+    - docker tag udagram-reverseproxy nikolaslacerda/udagram-reverseproxy:v1
+    - docker push docker.io/nikolaslacerda/udagram-reverseproxy:v1
+  
+
+  only:
+    - main
+
+docker-build:
+  # Official docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+  script:
+    - docker build -t udagram-api-feed ./udagram-api-feed
+    - docker tag udagram-api-feed nikolaslacerda/udagram-api-feed:v1
+    - docker push docker.io/nikolaslacerda/udagram-api-feed:v1
+
+    - docker build -t udagram-api-user ./udagram-api-user
+    - docker tag udagram-api-user nikolaslacerda/udagram-api-user:v1
+    - docker push docker.io/nikolaslacerda/udagram-api-user:v1
+
+    - docker build -t udagram-frontend ./udagram-frontend
+    - docker tag udagram-frontend nikolaslacerda/udagram-frontend:v1
+    - docker push docker.io/nikolaslacerda/udagram-frontend:v1
+
+    - docker build -t udagram-reverseproxy ./udagram-reverseproxy
+    - docker tag udagram-reverseproxy nikolaslacerda/udagram-reverseproxy:v1
+    - docker push docker.io/nikolaslacerda/udagram-reverseproxy:v1
+
+  except:
+    - main
